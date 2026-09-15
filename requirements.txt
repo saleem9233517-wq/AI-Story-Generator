@@ -1,0 +1,6 @@
+Flask
+openai
+python-dotenv
+pyttsx3
+reportlab
+python-docx
