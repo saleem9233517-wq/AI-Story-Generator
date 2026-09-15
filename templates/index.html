@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Story Studio</title>
+
+
+    <style>
+
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        :root {
+
+            --primary: #6c63ff;
+            --primary-dark: #5548e8;
+            --purple: #8b5cf6;
+
+            --dark: #16152b;
+            --text: #24233a;
+            --muted: #7b7a91;
+
+            --border: #e8e7f0;
+
+            --white: #ffffff;
+
+            --soft-purple: #f4f2ff;
+            --soft-bg: #f7f7fc;
+
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            color: var(--text);
+
+            background:
+
+                radial-gradient(
+                    circle at 5% 5%,
+                    rgba(108, 99, 255, 0.22),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 95% 10%,
+                    rgba(139, 92, 246, 0.18),
+                    transparent 25%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #eef0ff 0%,
+                    #f9f9fd 50%,
+                    #f0ecff 100%
+                );
+
+            padding: 30px 18px 60px;
+
+        }
+
+
+        /* =========================================================
+           MAIN CONTAINER
+        ========================================================= */
+
+        .container {
+
+            width: 100%;
+
+            max-width: 1180px;
+
+            margin: auto;
+
+        }
+
+
+        .app-card {
+
+            background: rgba(255,255,255,0.92);
+
+            border: 1px solid rgba(255,255,255,0.8);
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 30px 80px rgba(45, 35, 100, 0.15);
+
+            backdrop-filter: blur(18px);
+
+        }
+
+
+        /* =========================================================
+           TOP HEADER
+        ========================================================= */
+
+        .hero {
+
+            position: relative;
+
+            padding: 45px 50px;
+
+            overflow: hidden;
+
+            color: white;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #6258ef 0%,
+                    #725be7 45%,
+                    #9859e8 100%
+                );
+
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 330px;
+            height: 330px;
+
+            border-radius: 50%;
+
+            right: -120px;
+            top: -160px;
+
+            border: 1px solid rgba(255,255,255,.18);
+
+            box-shadow:
+
+                0 0 0 35px rgba(255,255,255,.04),
+                0 0 0 70px rgba(255,255,255,.025);
+
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            left: -80px;
+            bottom: -90px;
+
+            background: rgba(255,255,255,.07);
+
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 820px;
+
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 13px;
+
+            margin-bottom: 18px;
+
+            border-radius: 999px;
+
+            background: rgba(255,255,255,.13);
+
+            border: 1px solid rgba(255,255,255,.18);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .hero h1 {
+
+            font-size: clamp(35px, 5vw, 55px);
+
+            line-height: 1.05;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 14px;
+
+        }
+
+
+        .hero-description {
+
+            max-width: 720px;
+
+            color: rgba(255,255,255,.86);
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .hero-features {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+            margin-top: 25px;
+
+        }
+
+
+        .hero-feature {
+
+            padding: 9px 13px;
+
+            border-radius: 11px;
+
+            background: rgba(255,255,255,.11);
+
+            border: 1px solid rgba(255,255,255,.14);
+
+            font-size: 11px;
+
+            font-weight: 750;
+
+        }
+
+
+        /* =========================================================
+           CONTENT
+        ========================================================= */
+
+        .content {
+
+            padding: 42px 50px 48px;
+
+        }
+
+
+        /* =========================================================
+           SECTION HEADER
+        ========================================================= */
+
+        .section-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .section-icon {
+
+            width: 46px;
+            height: 46px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 14px;
+
+            background: var(--soft-purple);
+
+            font-size: 21px;
+
+        }
+
+
+        .section-header h2 {
+
+            font-size: 19px;
+
+            letter-spacing: -.4px;
+
+        }
+
+
+        .section-header p {
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        /* =========================================================
+           STORY IDEA
+        ========================================================= */
+
+        .idea-card {
+
+            padding: 23px;
+
+            background: linear-gradient(
+                145deg,
+                #ffffff,
+                #fafaff
+            );
+
+            border: 1px solid var(--border);
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 10px 30px rgba(40,30,100,.04);
+
+        }
+
+
+        .field {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 9px;
+
+            color: #353449;
+
+            font-size: 12px;
+
+            font-weight: 850;
+
+        }
+
+
+        textarea,
+        select,
+        input[type="text"] {
+
+            width: 100%;
+
+            border: 1px solid #dfdfe8;
+
+            border-radius: 14px;
+
+            padding: 13px 14px;
+
+            background: #ffffff;
+
+            color: #25243a;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            outline: none;
+
+            transition: all .2s ease;
+
+        }
+
+
+        textarea {
+
+            min-height: 145px;
+
+            resize: vertical;
+
+            line-height: 1.7;
+
+        }
+
+
+        textarea::placeholder,
+        input::placeholder {
+
+            color: #a2a1b2;
+
+        }
+
+
+        textarea:focus,
+        select:focus,
+        input[type="text"]:focus {
+
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 4px rgba(108,99,255,.09);
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* =========================================================
+           BASIC SETTINGS
+        ========================================================= */
+
+        .basic-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+
+            margin-top: 17px;
+
+        }
+
+
+        .setting-card {
+
+            padding: 17px;
+
+            border-radius: 17px;
+
+            border: 1px solid var(--border);
+
+            background: #fff;
+
+            transition: all .2s ease;
+
+        }
+
+
+        .setting-card:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 25px rgba(45,35,100,.07);
+
+            border-color: #d9d5ff;
+
+        }
+
+
+        .setting-icon {
+
+            width: 34px;
+            height: 34px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 10px;
+
+            background: var(--soft-purple);
+
+            margin-bottom: 11px;
+
+            font-size: 16px;
+
+        }
+
+
+        .setting-card label {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* =========================================================
+           ADVANCED SECTION
+        ========================================================= */
+
+        .advanced-section {
+
+            position: relative;
+
+            margin-top: 25px;
+
+            padding: 27px;
+
+            border-radius: 23px;
+
+            border: 1px solid #ddd9ff;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #f7f5ff,
+                    #fcfbff
+                );
+
+            overflow: hidden;
+
+        }
+
+
+        .advanced-section::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            right: -100px;
+            top: -90px;
+
+            background:
+                rgba(108,99,255,.07);
+
+        }
+
+
+        .advanced-header {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .advanced-icon {
+
+            width: 47px;
+            height: 47px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 14px;
+
+            background: #eae7ff;
+
+            font-size: 21px;
+
+        }
+
+
+        .advanced-title {
+
+            font-size: 19px;
+
+            font-weight: 850;
+
+        }
+
+
+        .advanced-subtitle {
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .input-row {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 16px;
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .input-column {
+
+            min-width: 0;
+
+        }
+
+
+        .custom-field {
+
+            margin-top: 2px;
+
+        }
+
+
+        .custom-field textarea {
+
+            min-height: 105px;
+
+        }
+
+
+        /* =========================================================
+           GENERATE BUTTON
+        ========================================================= */
+
+        .generate-button {
+
+            position: relative;
+
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 17px 20px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #6258ef,
+                    #8b5cf6
+                );
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 850;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 14px 30px rgba(108,99,255,.25);
+
+            transition: all .2s ease;
+
+            overflow: hidden;
+
+        }
+
+
+        .generate-button::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: -100%;
+
+            width: 60%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.18),
+                    transparent
+                );
+
+            transition: .5s;
+
+        }
+
+
+        .generate-button:hover::before {
+
+            left: 120%;
+
+        }
+
+
+        .generate-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 18px 35px rgba(108,99,255,.32);
+
+        }
+
+
+        .history-button {
+
+            width: 100%;
+
+            margin-top: 11px;
+
+            padding: 14px 20px;
+
+            border: 1px solid #dddde7;
+
+            border-radius: 15px;
+
+            background: #fff;
+
+            color: #363548;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: all .2s ease;
+
+        }
+
+
+        .history-button:hover {
+
+            transform: translateY(-1px);
+
+            background: #f8f8fc;
+
+            border-color: #cfcde0;
+
+        }
+
+
+        /* =========================================================
+           GENERATED STORY
+        ========================================================= */
+
+        .story-container {
+
+            margin-top: 35px;
+
+            padding: 28px;
+
+            border-radius: 23px;
+
+            border: 1px solid #dedbff;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #faf9ff,
+                    #ffffff
+                );
+
+            box-shadow:
+                0 15px 40px rgba(60,45,130,.07);
+
+        }
+
+
+        .story-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 19px;
+
+        }
+
+
+        .story-header-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .story-header-icon {
+
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 12px;
+
+            background: var(--soft-purple);
+
+            font-size: 19px;
+
+        }
+
+
+        .story-container h2 {
+
+            font-size: 20px;
+
+            letter-spacing: -.5px;
+
+        }
+
+
+        .ai-badge {
+
+            padding: 7px 11px;
+
+            border-radius: 999px;
+
+            background: #eeecff;
+
+            color: #5b51d7;
+
+            font-size: 10px;
+
+            font-weight: 850;
+
+            letter-spacing: .5px;
+
+        }
+
+
+        .story-text {
+
+            padding: 23px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 17px;
+
+            background: #fff;
+
+            color: #3b3a4d;
+
+            font-size: 14px;
+
+            line-height: 1.9;
+
+            white-space: pre-wrap;
+
+            word-wrap: break-word;
+
+        }
+
+
+        /* =========================================================
+           ACTION BUTTONS
+        ========================================================= */
+
+        .action-buttons {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+            margin-top: 16px;
+
+        }
+
+
+        .action-buttons form {
+
+            margin: 0;
+
+        }
+
+
+        .action-button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 850;
+
+            cursor: pointer;
+
+            transition: all .2s ease;
+
+        }
+
+
+        .action-button:hover {
+
+            transform: translateY(-2px);
+
+        }
+
+
+        .regenerate-button {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6258ef,
+                    #8b5cf6
+                );
+
+        }
+
+
+        .copy-button {
+
+            background: #242337;
+
+        }
+
+
+        .copy-button:hover {
+
+            background: #302e46;
+
+        }
+
+
+        #copyMessage {
+
+            display: none;
+
+            margin-top: 10px;
+
+            padding: 9px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            background: #edfff4;
+
+            color: #16814c;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* =========================================================
+           DOWNLOAD
+        ========================================================= */
+
+        .download-section {
+
+            margin-top: 25px;
+
+            padding-top: 22px;
+
+            border-top: 1px solid var(--border);
+
+        }
+
+
+        .download-title {
+
+            margin-bottom: 12px;
+
+            color: #3b394c;
+
+            font-size: 13px;
+
+            font-weight: 850;
+
+        }
+
+
+        .download-buttons {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+        }
+
+
+        .download-buttons form {
+
+            margin: 0;
+
+        }
+
+
+        .download-button {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: 850;
+
+            cursor: pointer;
+
+            transition: all .2s ease;
+
+        }
+
+
+        .download-button:hover {
+
+            transform: translateY(-2px);
+
+            filter: brightness(.97);
+
+        }
+
+
+        .pdf-button {
+
+            background: #df4545;
+
+        }
+
+
+        .word-button {
+
+            background: #2879d4;
+
+        }
+
+
+        .txt-button {
+
+            background: #38a45a;
+
+        }
+
+
+        .new-story-button {
+
+            display: block;
+
+            margin-top: 12px;
+
+            padding: 12px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            background: #f8f8fc;
+
+            color: #403e52;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 850;
+
+            transition: all .2s ease;
+
+        }
+
+
+        .new-story-button:hover {
+
+            background: #eeeeF6;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer-note {
+
+            margin-top: 22px;
+
+            text-align: center;
+
+            color: #9694a6;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 850px) {
+
+            .hero,
+            .content {
+
+                padding-left: 28px;
+                padding-right: 28px;
+
+            }
+
+
+            .basic-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            body {
+
+                padding: 10px;
+
+            }
+
+
+            .app-card {
+
+                border-radius: 22px;
+
+            }
+
+
+            .hero {
+
+                padding: 30px 20px;
+
+            }
+
+
+            .content {
+
+                padding: 25px 17px 30px;
+
+            }
+
+
+            .hero h1 {
+
+                font-size: 35px;
+
+            }
+
+
+            .advanced-section {
+
+                padding: 20px;
+
+            }
+
+
+            .input-row,
+            .action-buttons,
+            .download-buttons {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .story-container {
+
+                padding: 18px;
+
+            }
+
+
+            .story-header {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+
+            .ai-badge {
+
+                align-self: flex-start;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+    <div class="app-card">
+
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <header class="hero">
+
+            <div class="hero-content">
+
+
+                <div class="hero-badge">
+
+                    ✦ GENERATIVE AI · STORY STUDIO
+
+                </div>
+
+
+                <h1>
+
+                    ✨ AI Story Generator
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Turn your imagination into powerful stories.
+                    Customize characters, genre, tone, setting,
+                    writing style and language with AI.
+
+                </p>
+
+
+                <div class="hero-features">
+
+                    <div class="hero-feature">
+                        ⚡ AI Powered
+                    </div>
+
+                    <div class="hero-feature">
+                        🎭 7 Genres
+                    </div>
+
+                    <div class="hero-feature">
+                        🌐 4 Languages
+                    </div>
+
+                    <div class="hero-feature">
+                        🎨 Advanced Controls
+                    </div>
+
+                    <div class="hero-feature">
+                        📚 Story History
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <main class="content">
+
+
+            <!-- =================================================
+                 START STORY
+            ================================================== -->
+
+            <div class="section-header">
+
+                <div class="section-icon">
+                    💡
+                </div>
+
+                <div>
+
+                    <h2>
+                        Create Your Story
+                    </h2>
+
+                    <p>
+                        Start with an idea and customize the AI experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 MAIN FORM
+            ================================================== -->
+
+            <form method="POST">
+
+
+                <div class="idea-card">
+
+
+                    <!-- STORY IDEA -->
+
+                    <div class="field">
+
+                        <label>
+                            💡 Your Story Idea
+                        </label>
+
+                        <textarea
+                            name="prompt"
+                            placeholder="Describe your story idea... For example: A young explorer discovers a mysterious city hidden beneath an ancient desert."
+                            required
+                        >{{ prompt }}</textarea>
+
+                    </div>
+
+
+                    <!-- BASIC SETTINGS -->
+
+                    <div class="basic-grid">
+
+
+                        <!-- GENRE -->
+
+                        <div class="setting-card">
+
+                            <div class="setting-icon">
+                                📖
+                            </div>
+
+                            <label>
+                                Genre
+                            </label>
+
+                            <select name="genre">
+
+                                <option
+                                    value="Fantasy"
+                                    {% if genre == "Fantasy" %}selected{% endif %}
+                                >
+                                    Fantasy
+                                </option>
+
+                                <option
+                                    value="Adventure"
+                                    {% if genre == "Adventure" %}selected{% endif %}
+                                >
+                                    Adventure
+                                </option>
+
+                                <option
+                                    value="Mystery"
+                                    {% if genre == "Mystery" %}selected{% endif %}
+                                >
+                                    Mystery
+                                </option>
+
+                                <option
+                                    value="Horror"
+                                    {% if genre == "Horror" %}selected{% endif %}
+                                >
+                                    Horror
+                                </option>
+
+                                <option
+                                    value="Romance"
+                                    {% if genre == "Romance" %}selected{% endif %}
+                                >
+                                    Romance
+                                </option>
+
+                                <option
+                                    value="Science Fiction"
+                                    {% if genre == "Science Fiction" %}selected{% endif %}
+                                >
+                                    Science Fiction
+                                </option>
+
+                                <option
+                                    value="Comedy"
+                                    {% if genre == "Comedy" %}selected{% endif %}
+                                >
+                                    Comedy
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- LENGTH -->
+
+                        <div class="setting-card">
+
+                            <div class="setting-icon">
+                                📏
+                            </div>
+
+                            <label>
+                                Length
+                            </label>
+
+                            <select name="length">
+
+                                <option
+                                    value="Short"
+                                    {% if length == "Short" %}selected{% endif %}
+                                >
+                                    Short
+                                </option>
+
+                                <option
+                                    value="Medium"
+                                    {% if length == "Medium" %}selected{% endif %}
+                                >
+                                    Medium
+                                </option>
+
+                                <option
+                                    value="Long"
+                                    {% if length == "Long" %}selected{% endif %}
+                                >
+                                    Long
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- TONE -->
+
+                        <div class="setting-card">
+
+                            <div class="setting-icon">
+                                🎭
+                            </div>
+
+                            <label>
+                                Tone
+                            </label>
+
+                            <select name="tone">
+
+                                <option
+                                    value="Funny"
+                                    {% if tone == "Funny" %}selected{% endif %}
+                                >
+                                    Funny
+                                </option>
+
+                                <option
+                                    value="Serious"
+                                    {% if tone == "Serious" %}selected{% endif %}
+                                >
+                                    Serious
+                                </option>
+
+                                <option
+                                    value="Emotional"
+                                    {% if tone == "Emotional" %}selected{% endif %}
+                                >
+                                    Emotional
+                                </option>
+
+                                <option
+                                    value="Dark"
+                                    {% if tone == "Dark" %}selected{% endif %}
+                                >
+                                    Dark
+                                </option>
+
+                                <option
+                                    value="Inspirational"
+                                    {% if tone == "Inspirational" %}selected{% endif %}
+                                >
+                                    Inspirational
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ADVANCED CONTROLS
+                ================================================== -->
+
+                <section class="advanced-section">
+
+
+                    <div class="advanced-header">
+
+
+                        <div class="advanced-icon">
+                            ⚙️
+                        </div>
+
+
+                        <div>
+
+                            <div class="advanced-title">
+                                Advanced Story Controls
+                            </div>
+
+                            <div class="advanced-subtitle">
+                                Fine-tune your characters, environment,
+                                writing style and AI instructions.
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- CHARACTER -->
+
+                    <div class="input-row">
+
+
+                        <div class="input-column">
+
+                            <div class="field">
+
+                                <label>
+                                    👤 Character Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="character_name"
+                                    value="{{ character_name or '' }}"
+                                    placeholder="e.g. Alex Carter"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- NUMBER OF CHARACTERS -->
+
+                        <div class="input-column">
+
+                            <div class="field">
+
+                                <label>
+                                    👥 Number of Characters
+                                </label>
+
+                                <select
+                                    name="number_of_characters"
+                                >
+
+                                    <option value="1">
+                                        1 Character
+                                    </option>
+
+                                    <option value="2">
+                                        2 Characters
+                                    </option>
+
+                                    <option value="3">
+                                        3 Characters
+                                    </option>
+
+                                    <option value="4">
+                                        4 Characters
+                                    </option>
+
+                                    <option value="5">
+                                        5 Characters
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- SETTING + STYLE -->
+
+                    <div class="input-row">
+
+
+                        <div class="input-column">
+
+                            <div class="field">
+
+                                <label>
+                                    📍 Story Setting
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="setting"
+                                    value="{{ setting or '' }}"
+                                    placeholder="e.g. Ancient Castle, Mars, Haunted Forest"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="input-column">
+
+                            <div class="field">
+
+                                <label>
+                                    ✍️ Writing Style
+                                </label>
+
+                                <select
+                                    name="writing_style"
+                                >
+
+                                    <option
+                                        value="Creative"
+                                        {% if writing_style == "Creative" or not writing_style %}selected{% endif %}
+                                    >
+                                        Creative
+                                    </option>
+
+                                    <option
+                                        value="Simple"
+                                        {% if writing_style == "Simple" %}selected{% endif %}
+                                    >
+                                        Simple
+                                    </option>
+
+                                    <option
+                                        value="Descriptive"
+                                        {% if writing_style == "Descriptive" %}selected{% endif %}
+                                    >
+                                        Descriptive
+                                    </option>
+
+                                    <option
+                                        value="Cinematic"
+                                        {% if writing_style == "Cinematic" %}selected{% endif %}
+                                    >
+                                        Cinematic
+                                    </option>
+
+                                    <option
+                                        value="Poetic"
+                                        {% if writing_style == "Poetic" %}selected{% endif %}
+                                    >
+                                        Poetic
+                                    </option>
+
+                                    <option
+                                        value="Professional"
+                                        {% if writing_style == "Professional" %}selected{% endif %}
+                                    >
+                                        Professional
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- LANGUAGE -->
+
+                    <div class="input-row">
+
+
+                        <div class="input-column">
+
+                            <div class="field">
+
+                                <label>
+                                    🌐 Story Language
+                                </label>
+
+                                <select name="language">
+
+                                    <option
+                                        value="English"
+                                        {% if language == "English" or not language %}selected{% endif %}
+                                    >
+                                        English
+                                    </option>
+
+                                    <option
+                                        value="Urdu"
+                                        {% if language == "Urdu" %}selected{% endif %}
+                                    >
+                                        Urdu
+                                    </option>
+
+                                    <option
+                                        value="Roman Urdu"
+                                        {% if language == "Roman Urdu" %}selected{% endif %}
+                                    >
+                                        Roman Urdu
+                                    </option>
+
+                                    <option
+                                        value="Hindi"
+                                        {% if language == "Hindi" %}selected{% endif %}
+                                    >
+                                        Hindi
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="input-column">
+
+                            <div class="field">
+
+                                <label>
+                                    ✨ AI Mode
+                                </label>
+
+                                <select>
+
+                                    <option selected>
+                                        Advanced Story Generation
+                                    </option>
+
+                                    <option>
+                                        Creative Storytelling
+                                    </option>
+
+                                    <option>
+                                        Cinematic Storytelling
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- CUSTOM INSTRUCTIONS -->
+
+                    <div class="custom-field">
+
+                        <div class="field">
+
+                            <label>
+                                📝 Custom Instructions
+                            </label>
+
+                            <textarea
+                                name="custom_instructions"
+                                placeholder="Example: Add a surprising ending, introduce a mysterious character, make the story emotional, include a plot twist..."
+                            >{{ custom_instructions or '' }}</textarea>
+
+                        </div>
+
+                    </div>
+
+
+                </section>
+
+
+                <!-- =================================================
+                     GENERATE
+                ================================================== -->
+
+                <button
+                    type="submit"
+                    class="generate-button"
+                    id="generateButton"
+                >
+
+                    ✨ Generate Story with AI
+
+                </button>
+
+
+                <!-- =================================================
+                     HISTORY
+                ================================================== -->
+
+                <button
+                    type="button"
+                    class="history-button"
+                    onclick="window.location.href='/history'"
+                >
+
+                    📚 Open Story History
+
+                </button>
+
+
+            </form>
+
+
+            <!-- =================================================
+                 GENERATED STORY
+            ================================================== -->
+
+            {% if story %}
+
+            <section class="story-container">
+
+
+                <div class="story-header">
+
+
+                    <div class="story-header-left">
+
+                        <div class="story-header-icon">
+                            📖
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Your Generated Story
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="ai-badge">
+                        ✦ AI GENERATED
+                    </div>
+
+
+                </div>
+
+
+                <!-- STORY -->
+
+                <div
+                    class="story-text"
+                    id="storyText"
+                >{{ story }}</div>
+
+
+                <!-- =================================================
+                     ACTIONS
+                ================================================== -->
+
+                <div class="action-buttons">
+
+
+                    <!-- REGENERATE -->
+
+                    <form
+                        method="POST"
+                        action="/regenerate"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="prompt"
+                            value="{{ prompt }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="genre"
+                            value="{{ genre }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="length"
+                            value="{{ length }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="tone"
+                            value="{{ tone }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="character_name"
+                            value="{{ character_name or '' }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="number_of_characters"
+                            value="{{ number_of_characters or '1' }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="setting"
+                            value="{{ setting or '' }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="writing_style"
+                            value="{{ writing_style or '' }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="language"
+                            value="{{ language or '' }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="custom_instructions"
+                            value="{{ custom_instructions or '' }}"
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="action-button regenerate-button"
+                        >
+
+                            🔄 Regenerate Story
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- COPY -->
+
+                    <button
+                        type="button"
+                        class="action-button copy-button"
+                        onclick="copyStory()"
+                    >
+
+                        📋 Copy Story
+
+                    </button>
+
+
+                </div>
+
+
+                <div id="copyMessage">
+
+                    ✓ Story copied successfully!
+
+                </div>
+
+
+                <!-- =================================================
+                     DOWNLOAD
+                ================================================== -->
+
+                <div class="download-section">
+
+
+                    <div class="download-title">
+
+                        💾 Download Your Story
+
+                    </div>
+
+
+                    <div class="download-buttons">
+
+
+                        <!-- PDF -->
+
+                        <form
+                            method="POST"
+                            action="/download/pdf"
+                        >
+
+                            <input
+                                type="hidden"
+                                name="story"
+                                value="{{ story }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="title"
+                                value="{{ title or 'Untitled Story' }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="prompt"
+                                value="{{ prompt }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="genre"
+                                value="{{ genre }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="length"
+                                value="{{ length }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="tone"
+                                value="{{ tone }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="download-button pdf-button"
+                            >
+
+                                📄 Download PDF
+
+                            </button>
+
+                        </form>
+
+
+                        <!-- WORD -->
+
+                        <form
+                            method="POST"
+                            action="/download/word"
+                        >
+
+                            <input
+                                type="hidden"
+                                name="story"
+                                value="{{ story }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="title"
+                                value="{{ title or 'Untitled Story' }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="prompt"
+                                value="{{ prompt }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="genre"
+                                value="{{ genre }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="length"
+                                value="{{ length }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="tone"
+                                value="{{ tone }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="download-button word-button"
+                            >
+
+                                📝 Download Word
+
+                            </button>
+
+                        </form>
+
+
+                        <!-- TXT -->
+
+                        <form
+                            method="POST"
+                            action="/download/txt"
+                        >
+
+                            <input
+                                type="hidden"
+                                name="story"
+                                value="{{ story }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="title"
+                                value="{{ title or 'Untitled Story' }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="prompt"
+                                value="{{ prompt }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="genre"
+                                value="{{ genre }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="length"
+                                value="{{ length }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="tone"
+                                value="{{ tone }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="download-button txt-button"
+                            >
+
+                                📃 Download TXT
+
+                            </button>
+
+                        </form>
+
+
+                    </div>
+
+
+                    <!-- NEW STORY -->
+
+                    <a
+                        href="/"
+                        class="new-story-button"
+                    >
+
+                        ＋ Create New Story
+
+                    </a>
+
+
+                </div>
+
+
+            </section>
+
+            {% endif %}
+
+
+            <!-- FOOTER -->
+
+            <div class="footer-note">
+
+                Built with Generative AI · Create · Customize · Regenerate · Save
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   COPY STORY
+========================================================= */
+
+function copyStory() {
+
+    const storyElement =
+        document.getElementById("storyText");
+
+
+    if (!storyElement) {
+
+        return;
+
+    }
+
+
+    const story =
+        storyElement.innerText;
+
+
+    navigator.clipboard.writeText(story)
+
+        .then(function() {
+
+
+            const message =
+                document.getElementById("copyMessage");
+
+
+            message.style.display =
+                "block";
+
+
+            setTimeout(function() {
+
+                message.style.display =
+                    "none";
+
+            }, 2000);
+
+
+        })
+
+        .catch(function() {
+
+            alert(
+                "Unable to copy story."
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   GENERATE BUTTON LOADING EFFECT
+========================================================= */
+
+const mainForm =
+    document.querySelector(
+        'form[method="POST"]'
+    );
+
+
+if (mainForm) {
+
+    mainForm.addEventListener(
+        "submit",
+        function() {
+
+            const button =
+                document.getElementById(
+                    "generateButton"
+                );
+
+
+            if (button) {
+
+                button.innerHTML =
+                    "⏳ Creating Your Story...";
+
+                button.style.opacity =
+                    "0.85";
+
+                button.style.pointerEvents =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

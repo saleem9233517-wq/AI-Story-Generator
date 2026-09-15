@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Story Scenes</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            min-height: 100vh;
+
+            padding: 40px 20px;
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .header h1 {
+
+            margin: 0;
+
+            color: #333;
+
+            font-size: 34px;
+        }
+
+
+        .header p {
+
+            color: #777;
+
+            margin-top: 10px;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================================
+           STORY INFORMATION
+        ========================================= */
+
+        .story-info {
+
+            background: #f7f5fb;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            margin-bottom: 30px;
+
+            border-left:
+                5px solid #764ba2;
+        }
+
+
+        .story-info h2 {
+
+            margin-top: 0;
+
+            margin-bottom: 12px;
+
+            color: #333;
+        }
+
+
+        .story-meta {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+
+        .meta {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 7px 13px;
+
+            font-size: 13px;
+
+            color: #555;
+
+            border: 1px solid #ddd;
+        }
+
+
+        /* =========================================
+           SCENE COUNT
+        ========================================= */
+
+        .scene-count {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .scene-count strong {
+
+            font-size: 25px;
+
+            color: #764ba2;
+        }
+
+
+        .scene-count span {
+
+            display: block;
+
+            color: #777;
+
+            margin-top: 5px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           SCENE CARD
+        ========================================= */
+
+        .scene-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e5e5;
+
+            border-radius: 18px;
+
+            margin-bottom: 25px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.08);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .scene-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* =========================================
+           SCENE HEADER
+        ========================================= */
+
+        .scene-header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            color: white;
+
+            padding: 18px 22px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .scene-number {
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            opacity: 0.9;
+        }
+
+
+        .scene-title {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            margin-top: 5px;
+        }
+
+
+        .duration {
+
+            background:
+                rgba(255, 255, 255, 0.2);
+
+            padding: 8px 12px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================
+           SCENE BODY
+        ========================================= */
+
+        .scene-body {
+
+            padding: 24px;
+        }
+
+
+        .section {
+
+            margin-bottom: 20px;
+        }
+
+
+        .section:last-child {
+
+            margin-bottom: 0;
+        }
+
+
+        .section-title {
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            color: #764ba2;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .section-text {
+
+            color: #444;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================
+           CHARACTERS
+        ========================================= */
+
+        .characters {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+        }
+
+
+        .character {
+
+            background: #f0ebf8;
+
+            color: #5d3b80;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: 500;
+        }
+
+
+        /* =========================================
+           TWO COLUMN INFORMATION
+        ========================================= */
+
+        .scene-details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .detail-box {
+
+            background: #f8f8fa;
+
+            border-radius: 12px;
+
+            padding: 15px;
+        }
+
+
+        .detail-box .section-title {
+
+            margin-bottom: 6px;
+        }
+
+
+        /* =========================================
+           NARRATION
+        ========================================= */
+
+        .narration {
+
+            background: #f4f1fa;
+
+            border-left:
+                4px solid #764ba2;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            line-height: 1.7;
+
+            color: #444;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           DIALOGUE
+        ========================================= */
+
+        .dialogue {
+
+            background: #fff8e8;
+
+            border-left:
+                4px solid #e5a82f;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            line-height: 1.7;
+
+            color: #555;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           SCENE IMAGE AREA
+        ========================================= */
+
+        .scene-image-section {
+
+            margin-top: 25px;
+
+            margin-bottom: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8f7ff,
+                    #f1eef9
+                );
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            border:
+                1px solid #e4def0;
+        }
+
+
+        .scene-image-title {
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            color: #5d3b80;
+
+            margin-bottom: 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        /* =========================================
+           IMAGE WRAPPER
+        ========================================= */
+
+        .scene-image-wrapper {
+
+            width: 100%;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            background: #eeeeee;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.12);
+
+            margin-bottom: 15px;
+        }
+
+
+        .scene-image {
+
+            display: block;
+
+            width: 100%;
+
+            height: auto;
+
+            max-height: 600px;
+
+            object-fit: cover;
+        }
+
+
+        /* =========================================
+           IMAGE AVAILABLE STATUS
+        ========================================= */
+
+        .image-status {
+
+            background: #e9f7ef;
+
+            color: #217a45;
+
+            padding: 10px 14px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            margin-bottom: 12px;
+
+            border-left:
+                4px solid #28a745;
+        }
+
+
+        /* =========================================
+           IMAGE NOT AVAILABLE
+        ========================================= */
+
+        .image-unavailable {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f3f1f7,
+                    #ebe8f2
+                );
+
+            border-radius: 14px;
+
+            min-height: 220px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 30px 20px;
+
+            margin-bottom: 15px;
+
+            border:
+                1px dashed #c8c0d8;
+        }
+
+
+        .image-unavailable-icon {
+
+            font-size: 48px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .image-unavailable h3 {
+
+            margin: 0 0 8px 0;
+
+            color: #555;
+
+            font-size: 18px;
+        }
+
+
+        .image-unavailable p {
+
+            margin: 0;
+
+            color: #777;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            max-width: 550px;
+        }
+
+
+        /* =========================================
+           IMAGE BUTTONS
+        ========================================= */
+
+        .image-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            align-items: center;
+        }
+
+
+        .generate-image-button {
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff7043,
+                    #f4511e
+                );
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition:
+                opacity 0.2s,
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .generate-image-button:hover {
+
+            opacity: 0.95;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 7px 15px
+                rgba(244, 81, 30, 0.3);
+        }
+
+
+        .regenerate-image-button {
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition:
+                opacity 0.2s,
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .regenerate-image-button:hover {
+
+            opacity: 0.95;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 7px 15px
+                rgba(102, 126, 234, 0.3);
+        }
+
+
+        /* =========================================
+           IMAGE HELP
+        ========================================= */
+
+        .image-help {
+
+            color: #777;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            margin-top: 10px;
+
+            margin-bottom: 0;
+        }
+
+
+        /* =========================================
+           NO SCENES
+        ========================================= */
+
+        .no-scenes {
+
+            text-align: center;
+
+            padding: 50px 20px;
+
+            color: #777;
+        }
+
+
+        .no-scenes-icon {
+
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .no-scenes h2 {
+
+            color: #444;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-top: 30px;
+        }
+
+
+        .button {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            border: none;
+
+            cursor: pointer;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            transition:
+                opacity 0.2s,
+                transform 0.2s;
+        }
+
+
+        .button:hover {
+
+            opacity: 0.9;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .back-button {
+
+            background: #667eea;
+
+            color: white;
+        }
+
+
+        .history-button {
+
+            background: #764ba2;
+
+            color: white;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (
+            max-width: 700px
+        ) {
+
+            body {
+
+                padding: 15px;
+            }
+
+
+            .container {
+
+                padding: 20px;
+
+                border-radius: 15px;
+            }
+
+
+            .header h1 {
+
+                font-size: 27px;
+            }
+
+
+            .scene-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .duration {
+
+                align-self: flex-start;
+            }
+
+
+            .scene-details {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .scene-body {
+
+                padding: 18px;
+            }
+
+
+            .scene-image-section {
+
+                padding: 15px;
+            }
+
+
+            .image-buttons {
+
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+
+            .generate-image-button,
+            .regenerate-image-button {
+
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <div class="header">
+
+        <h1>
+            🎬 AI Story Scenes
+        </h1>
+
+        <p>
+            Your story has been converted into
+            cinematic scenes for video generation.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         STORY INFORMATION
+    ========================================== -->
+
+    <div class="story-info">
+
+        <h2>
+            {{ story[1] }}
+        </h2>
+
+        <div class="story-meta">
+
+            <div class="meta">
+                🎭 {{ story[3] }}
+            </div>
+
+            <div class="meta">
+                📏 {{ story[4] }}
+            </div>
+
+            <div class="meta">
+                🎨 {{ story[5] }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SCENES EXIST
+    ========================================== -->
+
+    {% if scenes and scenes.get("scenes") %}
+
+
+        <div class="scene-count">
+
+            <strong>
+                {{ scenes["scenes"]|length }}
+            </strong>
+
+            <span>
+                Cinematic scenes generated by AI
+            </span>
+
+        </div>
+
+
+        <!-- =====================================
+             SCENE LOOP
+        ====================================== -->
+
+        {% for scene in scenes["scenes"] %}
+
+
+            <div class="scene-card">
+
+
+                <!-- =================================
+                     SCENE HEADER
+                ================================== -->
+
+                <div class="scene-header">
+
+                    <div>
+
+                        <div class="scene-number">
+
+                            SCENE
+                            {{ scene.get(
+                                "scene_number",
+                                loop.index
+                            ) }}
+
+                        </div>
+
+                        <div class="scene-title">
+
+                            {{ scene.get(
+                                "scene_title",
+                                "Untitled Scene"
+                            ) }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="duration">
+
+                        ⏱
+                        {{ scene.get(
+                            "duration",
+                            8
+                        ) }}
+                        sec
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     SCENE BODY
+                ================================== -->
+
+                <div class="scene-body">
+
+
+                    <!-- =============================
+                         CHARACTERS
+                    ============================== -->
+
+                    {% if scene.get("characters") %}
+
+                        <div class="section">
+
+                            <div class="section-title">
+                                👤 Characters
+                            </div>
+
+                            <div class="characters">
+
+                                {% for character in
+                                    scene.get(
+                                        "characters",
+                                        []
+                                    ) %}
+
+                                    <span class="character">
+
+                                        {{ character }}
+
+                                    </span>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- =============================
+                         LOCATION
+                    ============================== -->
+
+                    <div class="section">
+
+                        <div class="section-title">
+                            📍 Location
+                        </div>
+
+                        <div class="section-text">
+
+                            {{ scene.get(
+                                "location",
+                                "Not specified"
+                            ) }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =============================
+                         ACTION + CAMERA
+                    ============================== -->
+
+                    <div class="scene-details">
+
+
+                        <div class="detail-box">
+
+                            <div class="section-title">
+                                🎭 Action
+                            </div>
+
+                            <div class="section-text">
+
+                                {{ scene.get(
+                                    "action",
+                                    "No action specified."
+                                ) }}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail-box">
+
+                            <div class="section-title">
+                                📷 Camera
+                            </div>
+
+                            <div class="section-text">
+
+                                {{ scene.get(
+                                    "camera",
+                                    "Cinematic camera shot."
+                                ) }}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =============================
+                         LIGHTING
+                    ============================== -->
+
+                    <div class="section">
+
+                        <div class="section-title">
+                            💡 Lighting & Atmosphere
+                        </div>
+
+                        <div class="section-text">
+
+                            {{ scene.get(
+                                "lighting",
+                                "Cinematic lighting."
+                            ) }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =============================
+                         NARRATION
+                    ============================== -->
+
+                    {% if scene.get("narration") %}
+
+                        <div class="section">
+
+                            <div class="section-title">
+                                🎙️ Narration
+                            </div>
+
+                            <div class="narration">
+
+                                {{ scene.get(
+                                    "narration"
+                                ) }}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- =============================
+                         DIALOGUE
+                    ============================== -->
+
+                    {% if scene.get("dialogue") %}
+
+                        <div class="section">
+
+                            <div class="section-title">
+                                💬 Dialogue
+                            </div>
+
+                            <div class="dialogue">
+
+                                {{ scene.get(
+                                    "dialogue"
+                                ) }}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- =================================
+                         SCENE IMAGE GENERATOR
+                    ================================== -->
+
+                    <div class="scene-image-section">
+
+
+                        <div class="scene-image-title">
+
+                            🖼️ Scene Visual
+
+                        </div>
+
+
+                        {% set scene_number =
+                            scene.get(
+                                "scene_number",
+                                loop.index
+                            )
+                        %}
+
+
+                        {% set scene_image_path =
+                            "scenes/story_"
+                            ~ story[0]
+                            ~ "_scene_"
+                            ~ scene_number
+                            ~ ".png"
+                        %}
+
+
+                        <!-- =================================
+                             CHECK IMAGE EXISTENCE
+                        ================================== -->
+
+                        {% if image_files.get(scene_number, false) %}
+
+
+                            <!-- =================================
+                                 IMAGE AVAILABLE
+                            ================================== -->
+
+                            <div class="scene-image-wrapper">
+
+                                <img
+                                    src="{{ url_for(
+                                        'static',
+                                        filename=scene_image_path
+                                    ) }}"
+                                    alt="Scene {{ scene_number }} image"
+                                    class="scene-image"
+                                >
+
+                            </div>
+
+
+                            <div class="image-status">
+
+                                ✅ Scene image is available.
+
+                            </div>
+
+
+                        {% else %}
+
+
+                            <!-- =================================
+                                 IMAGE NOT AVAILABLE
+                            ================================== -->
+
+                            <div class="image-unavailable">
+
+                                <div class="image-unavailable-icon">
+                                    🖼️
+                                </div>
+
+                                <h3>
+                                    Scene image not generated yet
+                                </h3>
+
+                                <p>
+                                    No image file is currently
+                                    available for this scene.
+                                    Generate the image using the
+                                    button below.
+                                </p>
+
+                            </div>
+
+
+                        {% endif %}
+
+
+                        <!-- =================================
+                             IMAGE GENERATION BUTTONS
+                        ================================== -->
+
+                        <div class="image-buttons">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'generate_scene_image_route',
+                                    story_id=story[0],
+                                    scene_number=scene_number
+                                ) }}"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="generate-image-button"
+                                >
+
+                                    🖼️
+                                    Generate Scene Image
+
+                                </button>
+
+                            </form>
+
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'generate_scene_image_route',
+                                    story_id=story[0],
+                                    scene_number=scene_number
+                                ) }}"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="regenerate-image-button"
+                                >
+
+                                    🔄
+                                    Regenerate Image
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <p class="image-help">
+
+                            Generate a cinematic visual for this
+                            scene using the scene's location,
+                            characters, action, camera and lighting
+                            information.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        {% endfor %}
+
+
+    <!-- =========================================
+         NO SCENES
+    ========================================== -->
+
+    {% else %}
+
+
+        <div class="no-scenes">
+
+            <div class="no-scenes-icon">
+                🎬
+            </div>
+
+            <h2>
+                No scenes generated yet
+            </h2>
+
+            <p>
+                Go back to Story History and click
+                <strong>Generate Scenes</strong>
+                for this story.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+    <!-- =========================================
+         BUTTONS
+    ========================================= -->
+
+    <div class="buttons">
+
+        <a
+            href="{{ url_for('history') }}"
+            class="button back-button"
+        >
+            ← Story History
+        </a>
+
+
+        {% if scenes and scenes.get("scenes") %}
+
+            <form
+                action="{{ url_for(
+                    'generate_scenes_route',
+                    story_id=story[0]
+                ) }}"
+                method="POST"
+                style="display:inline;"
+            >
+
+                <button
+                    type="submit"
+                    class="button history-button"
+                >
+
+                    🔄 Regenerate Scenes
+
+                </button>
+
+            </form>
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

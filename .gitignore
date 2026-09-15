@@ -1,0 +1,26 @@
+# Environment / API keys
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# PyCharm
+.idea/
+
+# SQLite database
+stories.db
+
+# Generated files
+static/audio/
+static/covers/
+static/scenes/
+
+# OS files
+.DS_Store
+Thumbs.db

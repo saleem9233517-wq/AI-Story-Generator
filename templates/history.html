@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Story History</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            padding: 30px;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            color: #333;
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 1100px;
+
+            margin: 0 auto;
+        }
+
+
+        .box {
+
+            width: 100%;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+
+            padding-bottom: 25px;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+
+        .header h1 {
+
+            margin: 0;
+
+            color: #333;
+
+            font-size: 30px;
+        }
+
+
+        .header-subtitle {
+
+            margin-top: 7px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        .back-button {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            white-space: nowrap;
+
+            transition: 0.2s;
+        }
+
+
+        .back-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 15px
+                rgba(102, 126, 234, 0.3);
+        }
+
+
+        /* =====================================================
+           FILTER
+        ===================================================== */
+
+        .filter-section {
+
+            background: #f8f8ff;
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .filter-title {
+
+            color: #444;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            margin-bottom: 14px;
+        }
+
+
+        .filter-buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .filter-button {
+
+            border: none;
+
+            padding: 10px 20px;
+
+            border-radius: 25px;
+
+            background: #eeeeee;
+
+            color: #444;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .filter-button:hover {
+
+            background: #dddddd;
+        }
+
+
+        .filter-button.active {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            color: white;
+        }
+
+
+        /* =====================================================
+           COUNT
+        ===================================================== */
+
+        .story-count {
+
+            color: #777;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           STORY CARD
+        ===================================================== */
+
+        .story-card {
+
+            background: #f8f8ff;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            margin-bottom: 22px;
+
+            border-left: 5px solid #667eea;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        .story-card h2 {
+
+            margin-top: 0;
+
+            margin-bottom: 18px;
+
+            color: #333;
+
+            font-size: 22px;
+        }
+
+
+        /* =====================================================
+           STORY TITLE
+        ===================================================== */
+
+        .story-title {
+
+            color: #667eea;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            margin-bottom: 18px;
+
+            line-height: 1.4;
+        }
+
+
+        /* =====================================================
+           AI STORY COVER
+        ===================================================== */
+
+        .story-cover {
+
+            width: 100%;
+
+            margin-bottom: 25px;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            background: #eeeeee;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.12);
+        }
+
+
+        .story-cover img {
+
+            width: 100%;
+
+            height: 400px;
+
+            display: block;
+
+            object-fit: cover;
+        }
+
+
+        .cover-placeholder {
+
+            width: 100%;
+
+            min-height: 230px;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            color: white;
+
+            box-shadow:
+                0 8px 25px
+                rgba(102, 126, 234, 0.25);
+        }
+
+
+        .cover-icon {
+
+            font-size: 65px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .cover-title {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+        }
+
+
+        .cover-subtitle {
+
+            font-size: 14px;
+
+            opacity: 0.9;
+        }
+
+
+        /* =====================================================
+           META
+        ===================================================== */
+
+        .meta {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .badge {
+
+            display: inline-block;
+
+            max-width: 100%;
+
+            background: #e8e8ff;
+
+            color: #555;
+
+            padding: 7px 12px;
+
+            border-radius: 15px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           STORY READING AREA
+        ===================================================== */
+
+        .story-heading {
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            color: #444;
+
+            margin-bottom: 10px;
+        }
+
+
+        .story-preview {
+
+            width: 100%;
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            border: 1px solid #e2e2e2;
+
+            color: #333;
+
+            font-size: 16px;
+
+            line-height: 1.9;
+
+            white-space: pre-wrap;
+
+            word-wrap: break-word;
+
+            overflow-wrap: break-word;
+
+            height: auto;
+
+            max-height: none;
+
+            overflow: visible;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =====================================================
+           ACTIONS
+        ===================================================== */
+
+        .story-actions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            border-top: 1px solid #ddd;
+
+            padding-top: 18px;
+        }
+
+
+        .story-actions form {
+
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .download-button,
+        .delete-button,
+        .edit-button,
+        .voice-button,
+        .scene-button,
+        .view-scenes-button {
+
+            border: none;
+
+            color: white;
+
+            padding: 11px 16px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            white-space: nowrap;
+
+            text-decoration: none;
+
+            display: inline-block;
+        }
+
+
+        .download-button:hover,
+        .delete-button:hover,
+        .edit-button:hover,
+        .voice-button:hover,
+        .scene-button:hover,
+        .view-scenes-button:hover {
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           PDF
+        ===================================================== */
+
+        .pdf-button {
+
+            background: #d32f2f;
+        }
+
+
+        .pdf-button:hover {
+
+            background: #b71c1c;
+        }
+
+
+        /* =====================================================
+           WORD
+        ===================================================== */
+
+        .word-button {
+
+            background: #1976d2;
+        }
+
+
+        .word-button:hover {
+
+            background: #125aa0;
+        }
+
+
+        /* =====================================================
+           TXT
+        ===================================================== */
+
+        .txt-button {
+
+            background: #388e3c;
+        }
+
+
+        .txt-button:hover {
+
+            background: #27632a;
+        }
+
+
+        /* =====================================================
+           EDIT
+        ===================================================== */
+
+        .edit-button {
+
+            background: #667eea;
+        }
+
+
+        .edit-button:hover {
+
+            background: #4f5fd5;
+
+            box-shadow:
+                0 5px 12px
+                rgba(102, 126, 234, 0.25);
+        }
+
+
+        /* =====================================================
+           VOICE BUTTON
+        ===================================================== */
+
+        .voice-button {
+
+            background: #764ba2;
+        }
+
+
+        .voice-button:hover {
+
+            background: #5c387f;
+
+            box-shadow:
+                0 5px 12px
+                rgba(118, 75, 162, 0.25);
+        }
+
+
+        /* =====================================================
+           SCENE BUTTON
+        ===================================================== */
+
+        .scene-button {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff7043,
+                    #f4511e
+                );
+        }
+
+
+        .scene-button:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4511e,
+                    #d84315
+                );
+
+            box-shadow:
+                0 5px 12px
+                rgba(244, 81, 30, 0.25);
+        }
+
+
+        /* =====================================================
+           VIEW SCENES BUTTON
+        ===================================================== */
+
+        .view-scenes-button {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00897b,
+                    #00695c
+                );
+        }
+
+
+        .view-scenes-button:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00695c,
+                    #004d40
+                );
+
+            box-shadow:
+                0 5px 12px
+                rgba(0, 105, 92, 0.25);
+        }
+
+
+        /* =====================================================
+           SCENE INFO
+        ===================================================== */
+
+        .scene-info {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            margin-bottom: 20px;
+
+            padding: 16px 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff3e0,
+                    #fbe9e7
+                );
+
+            border-radius: 12px;
+
+            border: 1px solid #ffccbc;
+
+            color: #6d4c41;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        .scene-info strong {
+
+            color: #e64a19;
+        }
+
+
+        /* =====================================================
+           AUDIO SECTION
+        ===================================================== */
+
+        .audio-section {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            margin-bottom: 20px;
+
+            padding: 20px;
+
+            background: white;
+
+            border-radius: 14px;
+
+            border: 1px solid #e2e2e2;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, 0.05);
+        }
+
+
+        .audio-title {
+
+            margin: 0 0 12px 0;
+
+            color: #444;
+
+            font-size: 17px;
+
+            font-weight: bold;
+        }
+
+
+        .audio-player {
+
+            width: 100%;
+
+            display: block;
+
+            margin-bottom: 14px;
+        }
+
+
+        .audio-download {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #667eea;
+
+            color: white;
+
+            padding: 10px 16px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+
+        .audio-download:hover {
+
+            background: #4f5fd5;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           AUDIO NOT GENERATED
+        ===================================================== */
+
+        .audio-not-generated {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 14px 18px;
+
+            background: #f4f1fa;
+
+            border-radius: 12px;
+
+            border: 1px dashed #764ba2;
+
+            color: #666;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           DELETE
+        ===================================================== */
+
+        .delete-button {
+
+            background: #555;
+        }
+
+
+        .delete-button:hover {
+
+            background: #333;
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .empty-message {
+
+            text-align: center;
+
+            padding: 55px 25px;
+
+            background: #f8f8ff;
+
+            border-radius: 16px;
+
+            color: #777;
+        }
+
+
+        .empty-message h2 {
+
+            margin-top: 0;
+
+            color: #555;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            body {
+
+                padding: 15px;
+            }
+
+
+            .box {
+
+                padding: 22px;
+            }
+
+
+            .header {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                text-align: center;
+            }
+
+
+            .header h1 {
+
+                font-size: 26px;
+            }
+
+
+            .back-button {
+
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            .filter-buttons {
+
+                justify-content: center;
+            }
+
+
+            .filter-button {
+
+                flex: 1;
+
+                min-width: 75px;
+            }
+
+
+            .story-card {
+
+                padding: 20px;
+            }
+
+
+            .story-title {
+
+                font-size: 21px;
+            }
+
+
+            .story-cover img {
+
+                height: 280px;
+            }
+
+
+            .cover-placeholder {
+
+                min-height: 190px;
+            }
+
+
+            .cover-icon {
+
+                font-size: 50px;
+            }
+
+
+            .cover-title {
+
+                font-size: 18px;
+            }
+
+
+            .story-preview {
+
+                padding: 16px;
+
+                font-size: 15px;
+
+                line-height: 1.8;
+            }
+
+
+            .story-actions {
+
+                flex-direction: column;
+            }
+
+
+            .story-actions form {
+
+                width: 100%;
+            }
+
+
+            .download-button,
+            .delete-button,
+            .edit-button,
+            .voice-button,
+            .scene-button,
+            .view-scenes-button {
+
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            .story-actions > .edit-button {
+
+                width: 100%;
+            }
+
+
+            .audio-section {
+
+                padding: 15px;
+            }
+
+
+            .audio-player {
+
+                width: 100%;
+            }
+
+
+            .audio-download {
+
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            .scene-info {
+
+                padding: 14px;
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 400px) {
+
+            body {
+
+                padding: 10px;
+            }
+
+
+            .box {
+
+                padding: 16px;
+            }
+
+
+            .filter-buttons {
+
+                flex-direction: column;
+            }
+
+
+            .filter-button {
+
+                width: 100%;
+
+                flex: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+    <div class="box">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================= -->
+
+        <div class="header">
+
+            <div>
+
+                <h1>
+                    📚 Story History
+                </h1>
+
+                <div class="header-subtitle">
+                    View, download and manage your generated stories
+                </div>
+
+            </div>
+
+
+            <a
+                href="/"
+                class="back-button"
+            >
+                ✨ Create New Story
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             FILTER
+        ================================================= -->
+
+        <div class="filter-section">
+
+            <div class="filter-title">
+                🔎 Filter Stories By Length
+            </div>
+
+
+            <div class="filter-buttons">
+
+                <button
+                    type="button"
+                    class="filter-button active"
+                    onclick="filterStories('All', this)"
+                >
+                    All
+                </button>
+
+
+                <button
+                    type="button"
+                    class="filter-button"
+                    onclick="filterStories('Short', this)"
+                >
+                    Short
+                </button>
+
+
+                <button
+                    type="button"
+                    class="filter-button"
+                    onclick="filterStories('Medium', this)"
+                >
+                    Medium
+                </button>
+
+
+                <button
+                    type="button"
+                    class="filter-button"
+                    onclick="filterStories('Long', this)"
+                >
+                    Long
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             COUNT
+        ================================================= -->
+
+        <div
+            class="story-count"
+            id="storyCount"
+        >
+            Total Stories: {{ stories|length }}
+        </div>
+
+
+        <!-- =================================================
+             STORIES
+        ================================================= -->
+
+        {% if stories %}
+
+
+            {% for story in stories %}
+
+
+            <div
+                class="story-card"
+                data-length="{{ story[4] }}"
+            >
+
+
+                <!-- =================================================
+                     STORY NUMBER
+                ================================================= -->
+
+                <h2>
+                    📖 Story #{{ story[0] }}
+                </h2>
+
+
+                <!-- =================================================
+                     AI TITLE
+                ================================================= -->
+
+                <div class="story-title">
+
+                    ✨ {{ story[1] or "Untitled Story" }}
+
+                </div>
+
+
+                <!-- =================================================
+                     AI STORY COVER
+                ================================================= -->
+
+                <div class="story-cover">
+
+                    {% if story[7] %}
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename=story[7]
+                            ) }}"
+                            alt="AI generated cover for {{ story[1] or 'story' }}"
+                        >
+
+                    {% else %}
+
+                        <div class="cover-placeholder">
+
+                            <div class="cover-icon">
+                                🖼️
+                            </div>
+
+                            <div class="cover-title">
+                                AI Story Cover
+                            </div>
+
+                            <div class="cover-subtitle">
+                                Generate a new story to create its AI cover
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =================================================
+                     META
+                ================================================= -->
+
+                <div class="meta">
+
+
+                    <span class="badge">
+
+                        💡 Idea:
+                        {{ story[2] }}
+
+                    </span>
+
+
+                    <span class="badge">
+
+                        📖 Genre:
+                        {{ story[3] }}
+
+                    </span>
+
+
+                    <span class="badge">
+
+                        📏 Length:
+                        {{ story[4] }}
+
+                    </span>
+
+
+                    <span class="badge">
+
+                        🎭 Tone:
+                        {{ story[5] }}
+
+                    </span>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     STORY
+                ================================================= -->
+
+                <div class="story-heading">
+
+                    📖 Generated Story
+
+                </div>
+
+
+                <div class="story-preview">
+
+                    {{ story[6] }}
+
+                </div>
+
+
+                <!-- =================================================
+                     ACTIONS
+                ================================================= -->
+
+                <div class="story-actions">
+
+
+                    <!-- ================= EDIT ================= -->
+
+                    <a
+                        href="{{ url_for(
+                            'edit_story',
+                            story_id=story[0]
+                        ) }}"
+                        class="edit-button"
+                    >
+
+                        ✏️ Edit Story
+
+                    </a>
+
+
+                    <!-- ================= GENERATE SCENES ================= -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'generate_scenes_route',
+                            story_id=story[0]
+                        ) }}"
+                    >
+
+                        <button
+                            type="submit"
+                            class="scene-button"
+                        >
+
+                            🎬 Generate Scenes
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- ================= VIEW SCENES ================= -->
+
+                    {% if scene_files.get(story[0]) %}
+
+                        <a
+                            href="{{ url_for(
+                                'show_scenes',
+                                story_id=story[0]
+                            ) }}"
+                            class="view-scenes-button"
+                        >
+
+                            🎬 View Scenes
+
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- ================= GENERATE VOICE ================= -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'generate_voice',
+                            story_id=story[0]
+                        ) }}"
+                    >
+
+                        <button
+                            type="submit"
+                            class="voice-button"
+                        >
+
+                            🎙️ Generate Voice
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- ================= PDF ================= -->
+
+                    <form
+                        method="POST"
+                        action="/download/pdf"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="story"
+                            value="{{ story[6] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="title"
+                            value="{{ story[1] or 'Untitled Story' }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="prompt"
+                            value="{{ story[2] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="genre"
+                            value="{{ story[3] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="length"
+                            value="{{ story[4] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="tone"
+                            value="{{ story[5] }}"
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="download-button pdf-button"
+                        >
+
+                            📄 Download PDF
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- ================= WORD ================= -->
+
+                    <form
+                        method="POST"
+                        action="/download/word"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="story"
+                            value="{{ story[6] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="title"
+                            value="{{ story[1] or 'Untitled Story' }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="prompt"
+                            value="{{ story[2] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="genre"
+                            value="{{ story[3] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="length"
+                            value="{{ story[4] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="tone"
+                            value="{{ story[5] }}"
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="download-button word-button"
+                        >
+
+                            📝 Download Word
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- ================= TXT ================= -->
+
+                    <form
+                        method="POST"
+                        action="/download/txt"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="story"
+                            value="{{ story[6] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="title"
+                            value="{{ story[1] or 'Untitled Story' }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="prompt"
+                            value="{{ story[2] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="genre"
+                            value="{{ story[3] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="length"
+                            value="{{ story[4] }}"
+                        >
+
+
+                        <input
+                            type="hidden"
+                            name="tone"
+                            value="{{ story[5] }}"
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="download-button txt-button"
+                        >
+
+                            📃 Download TXT
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- ================= DELETE ================= -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'delete_story_route',
+                            story_id=story[0]
+                        ) }}"
+                        onsubmit="
+                            return confirm(
+                                'Are you sure you want to delete this story?'
+                            );
+                        "
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete-button"
+                        >
+
+                            🗑️ Delete Story
+
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     SCENE INFORMATION
+                ================================================= -->
+
+                {% if scene_files.get(story[0]) %}
+
+                    <div class="scene-info">
+
+                        🎬 <strong>AI Scenes Ready!</strong>
+
+                        Scene breakdown for this story has already
+                        been generated.
+
+                        Click <strong>View Scenes</strong> above
+                        to see the cinematic scene plan.
+
+                    </div>
+
+                {% else %}
+
+                    <div class="scene-info">
+
+                        🎬 <strong>Video Generation Step:</strong>
+
+                        Generate AI scenes first.
+
+                        The scenes will contain location,
+                        characters, action, camera,
+                        lighting, narration and dialogue.
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     AUDIO PLAYER
+                ================================================= -->
+
+                {% set audio_file =
+                    'audio/story_' ~ story[0] ~ '.wav'
+                %}
+
+
+                {% if audio_files.get(story[0]) %}
+
+                    <div
+                        class="audio-section"
+                    >
+
+                        <div
+                            class="audio-title"
+                        >
+                            🎧 Story Voice
+                        </div>
+
+
+                        <audio
+                            controls
+                            class="audio-player"
+                        >
+
+                            <source
+                                src="{{ url_for(
+                                    'static',
+                                    filename=audio_file
+                                ) }}"
+                                type="audio/wav"
+                            >
+
+                            Your browser does not support
+                            audio playback.
+
+                        </audio>
+
+
+                        <a
+                            href="{{ url_for(
+                                'static',
+                                filename=audio_file
+                            ) }}"
+                            download
+                            class="audio-download"
+                        >
+
+                            ⬇️ Download Audio
+
+                        </a>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="audio-not-generated">
+
+                        🎙️ Voice has not been generated for this story yet.
+                        Click <strong>Generate Voice</strong> to create it.
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <!-- =================================================
+                 EMPTY
+            ================================================== -->
+
+            <div class="empty-message">
+
+                <h2>
+                    📚 No Stories Yet
+                </h2>
+
+                <p>
+                    Generate your first AI story to see it here.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FILTER JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+function filterStories(length, button) {
+
+
+    const cards =
+        document.querySelectorAll(".story-card");
+
+
+    let visibleCount = 0;
+
+
+    cards.forEach(function(card) {
+
+
+        const cardLength =
+            card.getAttribute("data-length");
+
+
+        if (
+            length === "All" ||
+            cardLength === length
+        ) {
+
+            card.style.display = "block";
+
+            visibleCount++;
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    /* Remove active from all buttons */
+
+    const buttons =
+        document.querySelectorAll(".filter-button");
+
+
+    buttons.forEach(function(btn) {
+
+        btn.classList.remove("active");
+
+    });
+
+
+    /* Add active to selected button */
+
+    button.classList.add("active");
+
+
+    /* Update count */
+
+    const countElement =
+        document.getElementById("storyCount");
+
+
+    if (length === "All") {
+
+        countElement.innerText =
+            "Total Stories: " + visibleCount;
+
+    } else {
+
+        countElement.innerText =
+            "Showing " +
+            visibleCount +
+            " " +
+            length +
+            " Stories";
+
+    }
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
